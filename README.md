@@ -28,12 +28,14 @@
 
 7. Rest Controller, реализовано три класса:
 - AuthenticationRestControllerV1 для получение токена который нам в дальнейшем дает доступ для User и Admin;
-- UserRestControllerV1 предназначен для User что б получить данные какого то пользователя по id 
+- UserRestControllerV1 предназначен для User что б получить данные какого то пользователя по id.
+
 ( Важний момент: для того что б Get запрос прошел успешно, в Postman перед отправлением запроса нам нужно в Headers 
-в поле Key прописываем Authorization, а в поле Value мы пишем Bearer_ и добавляем токен, который мы получили через AuthenticationRestControllerV1
+в поле Key прописать Authorization, а в поле Value мы пишем Bearer_ и добавляем токен, который мы получили через AuthenticationRestControllerV1
 пример Bearer_ey************************************ );
-- AdminRestControllerV1 работает почти также само, как и UserRestControllerV1 но он получает больше данных о пользователе, которого он ищет. И некоторый поля
-которые он видет, недоступны для UserRestControllerV;
+
+- AdminRestControllerV1 работает почти также само, как и UserRestControllerV1 но он получает больше данных о пользователе, которого он ищет. И некоторые поля
+которые он видет, недоступны для UserRestControllerV1;
 
 8. Реализация Dto под каждый RestController:
 - AuthenticationRequestDto дает username. password;
