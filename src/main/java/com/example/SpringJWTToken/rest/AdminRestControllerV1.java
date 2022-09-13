@@ -2,6 +2,7 @@ package com.example.SpringJWTToken.rest;
 
 
 import com.example.SpringJWTToken.dto.AdminUserDto;
+import com.example.SpringJWTToken.exeption.user.UserNotfoundException;
 import com.example.SpringJWTToken.model.User;
 import com.example.SpringJWTToken.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ public class AdminRestControllerV1 {
         User user = userService.findById(id);
 
         if (user == null){
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            throw new UserNotfoundException();
         }
         AdminUserDto result = AdminUserDto.fromUser(user);
         return new ResponseEntity<>(result, HttpStatus.OK);

@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> getAll() {
         List<User> result = userRepository.findAll();
-        log.info("All user", result);
+        log.info("All user: {}", result);
         return result;
     }
 

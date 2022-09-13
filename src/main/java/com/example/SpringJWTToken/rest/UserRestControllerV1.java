@@ -1,11 +1,13 @@
 package com.example.SpringJWTToken.rest;
 
 import com.example.SpringJWTToken.dto.UserDto;
+import com.example.SpringJWTToken.exeption.user.UserNotfoundException;
 import com.example.SpringJWTToken.model.User;
 import com.example.SpringJWTToken.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,7 +29,7 @@ public class UserRestControllerV1 {
         User user = userService.findById(id);
 
         if (user == null){
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+           throw new UserNotfoundException();
         }
         UserDto result = UserDto.fromUser(user);
         return new ResponseEntity<>(result, HttpStatus.OK);
