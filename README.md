@@ -41,3 +41,5 @@
 - AuthenticationRequestDto дает username. password;
 - UserDto для получение данных в UserRestControllerV1;
 - AdminUserDto для получение данных в AdminRestControllerV1;
+
+9. Добавление UserNotfoundException для того чтоб если не найдет пользователя по id прокинуть Exception с сообщением ошибки. 
