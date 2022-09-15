@@ -1,5 +1,6 @@
 package com.example.SpringJWTToken.service.impl;
 
+import com.example.SpringJWTToken.exeption.user.UserNotfoundException;
 import com.example.SpringJWTToken.model.Role;
 import com.example.SpringJWTToken.model.Status;
 import com.example.SpringJWTToken.model.User;
@@ -66,7 +67,7 @@ public class UserServiceImpl implements UserService {
 
         if (userById == null){
             log.info("User with id {} not found",id);
-            return null;
+            throw new UserNotfoundException();
         }
         log.info("User: {} found by {}", userById, id);
         return userById;
