@@ -15,7 +15,7 @@ public class CustomizedExceptionHandling extends ResponseEntityExceptionHandler 
     public ResponseEntity<Object> handleException(){
         ExceptionResponse response = new ExceptionResponse();
         response.setDateTime(LocalDateTime.now());
-        response.setMessage("User with this id not found");
+        response.setMessage("Is handler");
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
 }

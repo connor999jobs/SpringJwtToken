@@ -2,16 +2,19 @@ package com.example.SpringJWTToken.rest;
 
 
 import com.example.SpringJWTToken.dto.AdminUserDto;
+import com.example.SpringJWTToken.dto.UserDto;
 import com.example.SpringJWTToken.exeption.user.UserNotfoundException;
 import com.example.SpringJWTToken.model.User;
 import com.example.SpringJWTToken.service.UserService;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.nativex.json.JSONObject;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/v1/admin")
@@ -34,5 +37,31 @@ public class AdminRestControllerV1 {
         }
         AdminUserDto result = AdminUserDto.fromUser(user);
         return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+
+    @GetMapping("/users")
+    public ResponseEntity<List<User>> getAllUsers(){
+        List<User> userList = userService.getAll();
+        return new ResponseEntity<>(userList, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/create")
+    @SneakyThrows
+    public ResponseEntity<UserDto> registerNew(@RequestBody User user){
+        User createUser = userService.register(user);
+        UserDto register = UserDto.fromUser(createUser);
+        return new ResponseEntity<>(register, HttpStatus.CREATED);
+    }
+
+    @DeleteMapping(value = "/delete/{id}")
+    public ResponseEntity<UserDto> delete(@PathVariable(name = "id") Long id) {
+        try{
+            userService.delete(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        catch (EmptyResultDataAccessException e){
+            return ResponseEntity.notFound().build();
+        }
     }
 }

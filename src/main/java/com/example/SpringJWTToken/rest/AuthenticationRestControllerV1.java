@@ -1,6 +1,8 @@
 package com.example.SpringJWTToken.rest;
 
 import com.example.SpringJWTToken.dto.AuthenticationRequestDto;
+import com.example.SpringJWTToken.exeption.jwt.JwtAuthenticationException;
+import com.example.SpringJWTToken.exeption.jwt.JwtExceptionsHandler;
 import com.example.SpringJWTToken.model.User;
 import com.example.SpringJWTToken.security.jwt.JwtTokenProvider;
 import com.example.SpringJWTToken.service.UserService;
@@ -21,7 +23,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/api/v1/auth/")
-public class AuthenticationRestControllerV1 {
+public class AuthenticationRestControllerV1 extends JwtExceptionsHandler {
 
     private final AuthenticationManager authenticationManager;
 
@@ -37,7 +39,7 @@ public class AuthenticationRestControllerV1 {
     }
 
     @PostMapping("login")
-    public ResponseEntity login(@RequestBody AuthenticationRequestDto requestDto) {
+    public ResponseEntity login(@RequestBody AuthenticationRequestDto requestDto)  {
         try {
             String username = requestDto.getUsername();
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, requestDto.getPassword()));
@@ -46,7 +48,6 @@ public class AuthenticationRestControllerV1 {
             if (user == null) {
                 throw new UsernameNotFoundException("User with username: " + username + " not found");
             }
-
             String token = jwtTokenProvider.createToken(username, user.getRoles());
 
             Map<Object, Object> response = new HashMap<>();

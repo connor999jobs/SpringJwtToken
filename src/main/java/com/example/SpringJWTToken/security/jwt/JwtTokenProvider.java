@@ -87,7 +87,7 @@ public class JwtTokenProvider {
 
             return true;
         } catch (JwtException | IllegalArgumentException e) {
-            throw new JwtAuthenticationException("The token has expired. Please re-login " + e.getMessage());
+            throw new JwtAuthenticationException("The token is invalid, please re-login" + e.getMessage()) ;
         }
     }
 
