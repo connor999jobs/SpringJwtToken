@@ -43,3 +43,10 @@
 - AdminUserDto для получение данных в AdminRestControllerV1;
 
 9. Добавление UserNotfoundException для того чтоб если не найдет пользователя по id прокинуть Exception с сообщением ошибки. 
+
+POST - http://localhost:8088/api/v1/auth/login 
+![Знімок екрана (122)](https://user-images.githubusercontent.com/47573508/194413596-1da7eed6-c602-4aab-b544-d567610dc1fa.png)
+
+GET - http://localhost:8088/api/v1/admin/users/1
+![Знімок екрана (123)](https://user-images.githubusercontent.com/47573508/194413687-14ac1a68-9b94-45f3-bed4-ad49098470cc.png)
+
